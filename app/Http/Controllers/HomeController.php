@@ -8,26 +8,50 @@ use App\Product;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
 
     public function getIndex()
     {
-        $categories = Category::take(6)->get();
-        $products = Product::with('galleries')->take(8)->get();
-
-        $params = [
-            'categories' => $categories,
-            'products' => $products
-        ];
-        return view('pages.home', $params);
+//        $categories = Category::take(6)->get();
+//        $products = Product::with('galleries')->take(8)->get();
+//
+        $params = ['title' => 'Penyedia Mobil Handal'];
+        return view('landing-page.index', $params);
     }
 
-    public function index()
+    public function getTentangKami()
     {
+        $params = ['title' => 'Penyedia Mobil Handal'];
+        return view('landing-page.about', $params);
+    }
 
+    public function getHubungiKami()
+    {
+        $params = ['title' => 'Penyedia Mobil Handal'];
+
+        return view('landing-page.contact', $params);
+    }
+
+    public function getTim()
+    {
+        $params = ['title' => 'Penyedia Mobil Handal'];
+        return view('landing-page.team', $params);
+    }
+
+    public function getBooking()
+    {
+        $params = ['title' => 'Penyedia Mobil Handal'];
+        return view('landing-page.booking', $params);
+    }
+
+    public function getTestimonial()
+    {
+        $params = ['title' => 'Penyedia Mobil Handal'];
+        return view('landing-page.testimonial', $params);
+    }
+
+    public function getLayanan()
+    {
+        $params = ['title' => 'Penyedia Mobil Handal'];
+        return view('landing-page.service', $params);
     }
 }
