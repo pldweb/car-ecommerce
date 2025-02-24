@@ -7,19 +7,21 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="{{url('/')}}" class="nav-item nav-link active">Home</a>
-            <a href="{{url('tentang-kami')}}" class="nav-item nav-link">Tentang Kami</a>
-            <a href="{{url('layanan')}}" class="nav-item nav-link">Layanan</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                <div class="dropdown-menu fade-up m-0">
-                    <a href="{{url('booking')}}" class="dropdown-item">Booking</a>
-                    <a href="{{url('tim')}}" class="dropdown-item">Technicians</a>
-                    <a href="{{url('testimonial')}}" class="dropdown-item">Testimonial</a>
-                </div>
-            </div>
-            <a href="{{url('hubungi-kami')}}" class="nav-item nav-link">Contact</a>
+            @foreach(\App\Helper\MenuNavbarHelper::generateMenuNavbar() as $label => $item)
+                @if(isset($item['submenu']))
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu fade-up m-0">
+                            @foreach($item['submenu'] as $title => $menu)
+                                <a href="{{$menu['url']}}" class="dropdown-item">{{$title}}</a>
+                            @endforeach
+                        </div>
+                    </div>
+                @else
+                    <a href="{{$item['url']}}" class="nav-item nav-link">{{$label}}</a>
+                @endif
+            @endforeach
         </div>
-        <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Buat Penawaran<i class="fa fa-arrow-right ms-3"></i></a>
+        <a href="{{url('login')}}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
     </div>
 </nav>

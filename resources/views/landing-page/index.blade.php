@@ -5,9 +5,13 @@
     @include('komponen-site.slideshow')
     <!-- Carousel End -->
 
-    <!-- Service Start -->
-    @include('komponen-site.service-section')
-    <!-- Service End -->
+    <!-- Product Card -->
+    @include('komponen-site.produk-section')
+
+
+{{--    <!-- Service Start -->--}}
+{{--    @include('komponen-site.service-section')--}}
+{{--    <!-- Service End -->--}}
 
     <!-- About Start -->
     @include('komponen-site.about-section')
@@ -17,16 +21,15 @@
     @include('komponen-site.fact-section')
     <!-- Fact End -->
 
-    @include('komponen-site.service-2-section')
+{{--    @include('komponen-site.service-2-section')--}}
 
-    <!-- Booking Start -->
-    @include('komponen-site.booking-section')
-    <!-- Booking End -->
+{{--    <!-- Booking Start -->--}}
+{{--    @include('komponen-site.booking-section')--}}
+{{--    <!-- Booking End -->--}}
 
-
-    <!-- Team Start -->
-    @include('komponen-site.team-section')
-    <!-- Team End -->
+{{--    <!-- Team Start -->--}}
+{{--    @include('komponen-site.team-section')--}}
+{{--    <!-- Team End -->--}}
 
     <!-- Testimonial Start -->
     @include('komponen-site.testimonial')
