@@ -1,8 +1,8 @@
 <div class="container-xxl service py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="text-primary text-uppercase">// Our Services //</h6>
-            <h1 class="mb-5">Explore Our Services</h1>
+            <h6 class="text-primary text-uppercase">// Mobil Terbaik //</h6>
+            <h1 class="mb-5">Jelajahi Mobil Pilihan</h1>
         </div>
         <div class="row g-4 wow fadeInUp" data-wow-delay="0.3s">
             @foreach(\App\Helper\ProdukHelper::generateProduk() as $nama => $produk)

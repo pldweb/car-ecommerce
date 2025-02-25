@@ -18,6 +18,23 @@ class MenuNavbarHelper {
                 ]
             ]
         ];
-
     }
+
+    public static function generateNomorWA()
+    {
+        return [
+            'nomor' => '0895365441554'
+        ];
+    }
+
+    public static function generateAlamat()
+    {
+        return ['alamat' => 'JL. Sawo RT08/RW01'];
+    }
+
+    public static function generateWaktuBuka()
+    {
+        return 'Senin - Jumat 08.00 - 16.00 WIB';
+    }
+
 }

@@ -10,7 +10,7 @@
             @foreach(\App\Helper\MenuNavbarHelper::generateMenuNavbar() as $label => $item)
                 @if(isset($item['submenu']))
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Lainnya</a>
                         <div class="dropdown-menu fade-up m-0">
                             @foreach($item['submenu'] as $title => $menu)
                                 <a href="{{$menu['url']}}" class="dropdown-item">{{$title}}</a>

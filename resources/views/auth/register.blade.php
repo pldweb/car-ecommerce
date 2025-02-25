@@ -12,30 +12,18 @@
                             <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="name">Nama</label>
-                                    <input id="name" type="text" class="form-control" name="name" value="" required
-                                           autofocus>
-                                    <div class="invalid-feedback">
-                                        Name is required
-                                    </div>
+                                    {!! formInput('nama', 'text', ['required', 'autofocus']) !!}
                                 </div>
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="email">E-Mail Address</label>
-                                    <input id="email" type="email" class="form-control" name="email" value="" required>
-                                    <div class="invalid-feedback">
-                                        Email is invalid
-                                    </div>
+                                    {!! formInput('email', 'email', ['required', 'autofocus']) !!}
                                 </div>
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="password">Password</label>
-                                    <input id="password" type="password" class="form-control" name="password" required>
-                                    <div class="invalid-feedback">
-                                        Password is required
-                                    </div>
+                                    {!! formInput('password', 'password', ['required', 'autofocus']) !!}
                                 </div>
                                 <div class="align-items-center d-flex">
-                                    <button type="submit" class="btn btn-primary ms-auto">
-                                        Daftar Akun
-                                    </button>
+                                    {!! formSubmit('Daftar Akun', ['']) !!}
                                 </div>
                             </form>
                         </div>

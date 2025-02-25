@@ -14,7 +14,9 @@ class HomeController extends Controller
 //        $categories = Category::take(6)->get();
 //        $products = Product::with('galleries')->take(8)->get();
 //
-        $params = ['title' => 'Penyedia Mobil Handal'];
+        $params = [
+            'title' => 'Penyedia Mobil Handal',
+        ];
         return view('landing-page.index', $params);
     }
 
@@ -53,5 +55,22 @@ class HomeController extends Controller
     {
         $params = ['title' => 'Penyedia Mobil Handal'];
         return view('landing-page.service', $params);
+    }
+
+    public function getLogin()
+    {
+        $params = ['title' => 'Penyedia Mobil Handal'];
+        return view('auth.login', $params);
+    }
+
+    public function getRegister()
+    {
+        $params = ['title' => 'Penyedia Mobil Handal'];
+        return view('auth.register', $params);
+    }
+    public function getResetPassword()
+    {
+        $params = ['title' => 'Penyedia Mobil Handal'];
+        return view('auth.forgot-password', $params);
     }
 }
