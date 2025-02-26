@@ -7,9 +7,10 @@
                     <div class="text-center my-5">
                     </div>
                     <div class="card shadow-lg">
+                        <div id="message"></div>
                         <div class="card-body p-5">
                             <h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
-                            <form action="{{url('post-login')}}" method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                            <form method="POST" onsubmit="return false;" class="needs-validation" id="form-login">
                                 @csrf
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="email">E-Mail Address</label>
@@ -37,8 +38,7 @@
                         </div>
                         <div class="card-footer py-3 border-0">
                             <div class="text-center">
-                                Tidak punya akun? <a href="{{url('register')}}" class="text-decoration-underline">Create
-                                    One</a>
+                                Tidak punya akun? <a href="{{url('register')}}" class="text-decoration-underline">Buat Akun</a>
                             </div>
                         </div>
                     </div>
@@ -46,4 +46,14 @@
             </div>
         </div>
     </section>
+
+    <script>
+        $(document).ready(function() {
+            $('#form-login').submit(function(){
+                let dataInput = new FormData(this);
+                    ajxProcess('/auth/login/login-action', dataInput, '#message' )
+            })
+        })
+    </script>
+
 @endsection

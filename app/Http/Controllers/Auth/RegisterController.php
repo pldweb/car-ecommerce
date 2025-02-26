@@ -27,8 +27,9 @@ class RegisterController extends Controller
                 'email' => $email,
                 'password' => Hash::make($password),
             ]);
+
             $redirectURL = url('/login');
-            return "<div class='alert alert-success'>Daftar Akun berhasil</div>
+            return "<div class='alert alert-success'>Daftar Akun berhasil, saatnya login</div>
                 <script>
                     setTimeout(function () {
                         location.href = '$redirectURL';

@@ -3,48 +3,33 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
 
     use AuthenticatesUsers;
 
-    public function postLogin(Request $request)
+    public function postLoginAction(Request $request)
     {
         $email = $request->input('email');
         $password = $request->input('password');
 
-        $pesan = [];
-        if (empty($email)) {
-            $pesan['email'] = 'Email tidak boleh kosong';
-        }
-
-        if (empty($password)) {
-            $pesan['password'] = 'Password tidak boleh kosong';
-        }
-
-        if (!empty($pesan)) {
-            return view('auth.login', ['errors' => $pesan]);
-        }
-
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
-            return redirect('/dashboard');
+            $redirectURL = url('/dashboard');
+            return "<div class='alert alert-success'>Login Akun berhasil</div>
+                <script>
+                    setTimeout(function () {
+                        location.href = '$redirectURL';
+                    }, 1500);
+                </script>";
         }
 
-        return view('auth.login', ['errors' => ['email' => 'Email atau password salah']]);
+        return "<div class='alert alert-danger'>Email atau Password Anda tidak sesuai</div>";
     }
 
 }
