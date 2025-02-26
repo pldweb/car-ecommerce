@@ -1,5 +1,6 @@
 @extends('layouts.landing-page')
 @section('content')
+
     <section class="h-100 hero">
         <div class="container h-100">
             <div class="row justify-content-sm-center h-100">
@@ -7,12 +8,14 @@
                     <div class="text-center my-5">
                     </div>
                     <div class="card shadow-lg">
+                        <div id="message"></div>
                         <div class="card-body p-5">
                             <h1 class="fs-4 card-title fw-bold mb-4">Register Akun</h1>
-                            <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                            <form method="post" onsubmit="return false;" id="register-form" class="needs-validation">
+                                @csrf
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="name">Nama</label>
-                                    {!! formInput('nama', 'text', ['required', 'autofocus']) !!}
+                                    {!! formInput('text', 'nama', ['required', 'autofocus']) !!}
                                 </div>
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="email">E-Mail Address</label>
@@ -22,6 +25,7 @@
                                     <label class="mb-2 text-muted" for="password">Password</label>
                                     {!! formInput('password', 'password', ['required', 'autofocus']) !!}
                                 </div>
+                                {!! formInput('hidden', '_token') !!}
                                 <div class="align-items-center d-flex">
                                     {!! formSubmit('Daftar Akun', ['']) !!}
                                 </div>
@@ -37,4 +41,15 @@
             </div>
         </div>
     </section>
+
+    <script>
+        $(document).ready(function() {
+            $('#register-form').submit(function() {
+                var dataInput = new FormData(this);
+                ajxProcess('/auth/register/register-action', dataInput, '#message')
+            });
+        });
+    </script>
+
+
 @endsection

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -21,20 +22,29 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function postLogin(Request $request)
     {
-        $this->middleware('guest')->except('logout');
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        $pesan = [];
+        if (empty($email)) {
+            $pesan['email'] = 'Email tidak boleh kosong';
+        }
+
+        if (empty($password)) {
+            $pesan['password'] = 'Password tidak boleh kosong';
+        }
+
+        if (!empty($pesan)) {
+            return view('auth.login', ['errors' => $pesan]);
+        }
+
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            return redirect('/dashboard');
+        }
+
+        return view('auth.login', ['errors' => ['email' => 'Email atau password salah']]);
     }
+
 }

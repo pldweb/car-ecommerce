@@ -40,7 +40,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function registerRoutesFromFolder($folder, $namespace, $prefix = '')
     {
+        // Scan setiap file di dalam folder controller
         foreach (scandir($folder) as $file) {
+
+            // Skip . pada nama file
             if ($file === '.' || $file === '..') {
                 continue;
             }
@@ -49,11 +52,16 @@ class AppServiceProvider extends ServiceProvider
             $className = pathinfo($file, PATHINFO_FILENAME);
 
             if (is_dir($fullPath)) {
-                // ✅ Memastikan pemanggilan metode benar
+
+                // Memastikan pemanggilan metode benar
                 $this->registerRoutesFromFolder($fullPath, $namespace . '\\' . $className, $prefix . strtolower($className) . '/');
+
             } elseif (str_ends_with($file, 'Controller.php')) {
-                // ✅ Pastikan hanya file controller yang diproses
+
+                // Pastikan hanya file controller yang diproses
                 $controllerClass = $namespace . '\\' . $className;
+
+                // Cek apakah ada class
                 if (class_exists($controllerClass)) {
                     $this->registerRoutesFromController($controllerClass, $prefix);
                 }
@@ -65,6 +73,19 @@ class AppServiceProvider extends ServiceProvider
     {
         $reflection = new ReflectionClass($controllerClass);
         $methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+
+        // Ambil nama kelas tanpa namespace
+        $controllerName = $reflection->getShortName();
+
+        // Jika controller adalah HomeController, gunakan root URL
+        if ($controllerName === 'HomeController') {
+            $prefix = '/';
+        } else {
+            // Jika bukan HomeController, tambahkan nama controller ke prefix
+            $controllerName = str_replace('Controller', '', $controllerName);
+            $controllerName = strtolower($controllerName);
+            $prefix .= $controllerName . '/';
+        }
 
         foreach ($methods as $method) {
             if ($method->class !== $controllerClass || $method->isConstructor()) {
@@ -83,10 +104,13 @@ class AppServiceProvider extends ServiceProvider
                     $routeName = '';
                 }
 
+                // Gabungkan prefix dan nama method
+                $fullRoute = $prefix . $routeName;
+
                 if ($routeName === '') {
                     Route::match(strtolower($httpVerb), $prefix, [$controllerClass, $methodName]);
                 } else {
-                    Route::match(strtolower($httpVerb), $prefix . $routeName . '/{params?}', [$controllerClass, $methodName])
+                    Route::match(strtolower($httpVerb), $fullRoute . '/{params?}', [$controllerClass, $methodName])
                         ->where('params', '.*');
                 }
             }

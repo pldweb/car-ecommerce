@@ -23,3 +23,10 @@ if (!function_exists('formSubmit')) {
     }
 }
 
+if(!function_exists('alert_success')){
+    function alert_success($msg = null){
+        $html = "<div class='alert alert-success alert-dismissible'>$msg</div>";
+        return $html;
+    }
+}
+
