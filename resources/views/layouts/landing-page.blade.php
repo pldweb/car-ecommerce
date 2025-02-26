@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="utf-8">
     <title>{{ $title }}</title>
@@ -39,20 +38,20 @@
 <body>
 
     <!-- Spinner Start -->
-    @include('komponen-site.spinner')
+    @include('landing-page.komponen-site.spinner')
     <!-- Spinner End -->
 
     <!-- Topbar Start -->
-    @include('komponen-site.top-navbar')
+    @include('landing-page.komponen-site.top-navbar')
     <!-- Topbar End -->
 
     <!-- Navbar Start -->
-    @include('komponen-site.navbar')
+    @include('landing-page.komponen-site.navbar')
     <!-- Navbar End -->
 
     @yield('content')
 
-    @include('komponen-site.footer')
+    @include('landing-page.komponen-site.footer')
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>

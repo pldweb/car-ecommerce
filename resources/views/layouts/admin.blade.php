@@ -1,163 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <title>Admin</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <meta name="Author" content="Muhammad Rivaldi Fanani">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title')</title>
+    <!-- Favicon -->
+    <link href="" rel="icon">
 
-    @stack('prepend-style')
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <link href="/style/main.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/>
-    @stack('addon-style')
-  </head>
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
 
-  <body>
-    <div class="page-dashboard">
-      <div class="d-flex" id="wrapper" data-aos="fade-right">
-        <!-- Sidebar -->
-        <div class="border-right" id="sidebar-wrapper">
-          <div class="sidebar-heading text-center">
-            <img src="/images/admin.png" alt="" class="my-4" style="max-width: 150px;" />
-          </div>
-          <div class="list-group list-group-flush">
-            <a
-              href="{{ route('admin-dashboard') }}"
-              class="list-group-item list-group-item-action {{ (request()->is('admin')) ? 'active' : '' }} "
-            >
-              Dashboard
-            </a>
-            <a
-              href="{{ route('product.index') }}"
-              class="list-group-item list-group-item-action {{ (request()->is('admin/product')) ? 'active' : '' }} "
-            >
-              Products
-            </a>
-            <a
-              href="{{ route('product-gallery.index') }}"
-              class="list-group-item list-group-item-action {{ (request()->is('admin/product-gallery*')) ? 'active' : '' }} "
-            >
-              Galleries
-            </a>
-            <a
-              href="{{ route('category.index') }}"
-              class="list-group-item list-group-item-action {{ (request()->is('admin/category*')) ? 'active' : '' }} "
-            >
-              Categories
-            </a>
-            <a
-              href="{{ route('transaction.index') }}"
-              class="list-group-item list-group-item-action"
-            >
-              Transactions
-            </a>
-            <a
-              href="{{ route('user.index') }}"
-              class="list-group-item list-group-item-action {{ (request()->is('admin/user*')) ? 'active' : '' }} "
-            >
-              Users
-            </a>
-            <a
-              href="/index.html"
-              class="list-group-item list-group-item-action"
-            >
-              Sign Out
-            </a>
-          </div>
-        </div>
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-          <nav
-            class="navbar navbar-expand-lg navbar-light navbar-store fixed-top"
-            data-aos="fade-down"
-          >
-            <div class="container-fluid">
-              <button
-                class="btn btn-secondary d-md-none mr-auto mr-2"
-                id="menu-toggle"
-              >
-                &laquo; Menu
-              </button>
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Desktop Menu -->
-                <ul class="navbar-nav d-none d-lg-flex ml-auto">
-                  <li class="nav-item dropdown">
-                    <a
-                      href="#"
-                      class="nav-link"
-                      id="navbarDropdown"
-                      role="button"
-                      data-toggle="dropdown"
-                    >
-                      <img
-                        src="/images/icon-user.png"
-                        alt=""
-                        class="rounded-circle mr-2 profile-picture"
-                      />
-                      Hi, Angga
-                    </a>
-                    <div class="dropdown-menu">
-                      <a href="/" class="dropdown-item">Logout</a>
-                    </div>
-                  </li>
-                </ul>
+    <!-- Libraries Stylesheet -->
+    <link href="{{asset('lib/animate/animate.min.css')}}" rel="stylesheet">
+    <link href="{{asset('lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+    <link href="{{asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css')}}" rel="stylesheet" />
 
-                <ul class="navbar-nav d-block d-lg-none">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      Hi, Angga
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link d-inline-block">
-                      Cart
-                    </a>
-                  </li>
-                </ul>
-              </div>
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Sweet Alert -->
+    <link type="text/css" href="{{asset('vendor/sweetalert2/dist/sweetalert2.min.css')}}" rel="stylesheet">
+
+    <!-- Notyf -->
+    <link type="text/css" href="{{asset('vendor/notyf/notyf.min.css')}}" rel="stylesheet">
+
+    <!-- Volt CSS -->
+    <link type="text/css" href="{{asset('css/volt.css')}}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
+
+</head>
+<body>
+
+    @yield('content')
+
+    <footer class="bg-white rounded shadow p-5 mb-4 mt-4">
+        <div class="row">
+            <div class="col-12 col-md-4 col-xl-6 mb-4 mb-md-0">
+                <p class="mb-0 text-center text-lg-start">© 2019-<span class="current-year"></span> <a class="text-primary fw-normal" href="https://themesberg.com" target="_blank">Themesberg</a></p>
             </div>
-          </nav>
-
-          {{-- Content --}}
-          @yield('content')
-
+            <div class="col-12 col-md-8 col-xl-6 text-center text-lg-start">
+                <!-- List -->
+                <ul class="list-inline list-group-flush list-group-borderless text-md-end mb-0">
+                    <li class="list-inline-item px-0 px-sm-2">
+                        <a href="https://themesberg.com/about">About</a>
+                    </li>
+                    <li class="list-inline-item px-0 px-sm-2">
+                        <a href="https://themesberg.com/themes">Themes</a>
+                    </li>
+                    <li class="list-inline-item px-0 px-sm-2">
+                        <a href="https://themesberg.com/blog">Blog</a>
+                    </li>
+                    <li class="list-inline-item px-0 px-sm-2">
+                        <a href="https://themesberg.com/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
-    </div>
+    </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    @stack('prepend-script')
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
-    <script>
-      $("#datatable").DataTable();
-    </script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
-    <script>
-      $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-      });
-    </script>
-    @stack('addon-script')
-  </body>
+    <!-- Core -->
+    <script src="{{asset("@popperjs/core/dist/umd/popper.min.js")}}"></script>
+    <script src="{{asset("vendor/bootstrap/dist/js/bootstrap.min.js")}}"></script>
+
+    <!-- Vendor JS -->
+    <script src="{{asset("vendor/onscreen/dist/on-screen.umd.min.js")}}"></script>
+
+    <!-- Slider -->
+    <script src="{{asset("vendor/nouislider/distribute/nouislider.min.js")}}"></script>
+
+    <!-- Smooth scroll -->
+    <script src="{{asset("vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js")}}"></script>
+
+    <!-- Charts -->
+    <script src="{{asset("vendor/chartist/dist/chartist.min.js")}}"></script>
+    <script src="{{asset("vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js")}}"></script>
+
+    <!-- Datepicker -->
+    <script src="{{asset("vendor/vanillajs-datepicker/dist/js/datepicker.min.js")}}"></script>
+
+    <!-- Sweet Alerts 2 -->
+    <script src="{{asset("vendor/sweetalert2/dist/sweetalert2.all.min.js")}}"></script>
+
+    <!-- Moment JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+    <!-- Vanilla JS Datepicker -->
+    <script src="{{asset("vendor/vanillajs-datepicker/dist/js/datepicker.min.js")}}"></script>
+
+    <!-- Notyf -->
+    <script src="{{asset("vendor/notyf/notyf.min.js")}}"></script>
+
+    <!-- Simplebar -->
+    <script src="{{asset("vendor/simplebar/dist/simplebar.min.js")}}"></script>
+
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- Volt JS -->
+    <script src="{{asset("js/volt.js")}}"></script>
+</body>
 </html>
