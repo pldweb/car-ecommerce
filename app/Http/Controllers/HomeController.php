@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-
     public function getIndex()
     {
         $params = [
@@ -56,12 +56,19 @@ class HomeController extends Controller
 
     public function getLogin()
     {
+        if(Auth::check()){
+            return redirect('/dashboard');
+        }
+
         $params = ['title' => 'Penyedia Mobil Handal'];
         return view('landing-page.auth.login', $params);
     }
 
     public function getRegister()
     {
+        if(Auth::check()){
+            return redirect('/dashboard');
+        }
         $params = ['title' => 'Penyedia Mobil Handal'];
         return view('landing-page.auth.register', $params);
     }

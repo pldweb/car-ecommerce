@@ -13,12 +13,15 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+
     public function postRegisterAction(Request $request)
     {
         $nama = $request->input('nama');
-
         $email = $request->input('email');
-
         $password = $request->input('password');
 
         try {
@@ -37,12 +40,7 @@ class RegisterController extends Controller
                 </script>";
 
         } catch (\Exception $e) {
-            return "<div class='alert alert-danger'>Daftar gagal $e</div>";
+            return "<div class='alert alert-danger'>Daftar gagal</div>";
         }
-    }
-
-    public function check(Request $request)
-    {
-        return User::where('email', $request->email)->count() > 0 ? 'Unavailable' :"Available" ;
     }
 }

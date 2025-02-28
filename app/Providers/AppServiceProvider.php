@@ -74,47 +74,61 @@ class AppServiceProvider extends ServiceProvider
         $reflection = new ReflectionClass($controllerClass);
         $methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
 
-        // Ambil nama kelas tanpa namespace
         $controllerName = $reflection->getShortName();
+        $namespace = $reflection->getNamespaceName();
 
-        // Jika controller adalah HomeController, gunakan root URL
         if ($controllerName === 'HomeController') {
             $prefix = '/';
         } else {
-            // Jika bukan HomeController, tambahkan nama controller ke prefix
             $controllerName = str_replace('Controller', '', $controllerName);
             $controllerName = strtolower($controllerName);
             $prefix .= $controllerName . '/';
         }
 
-        foreach ($methods as $method) {
-            if ($method->class !== $controllerClass || $method->isConstructor()) {
-                continue;
-            }
+        // Cek apakah controller ada di dalam folder Auth
+        $isAuthController = str_contains($namespace, 'App\Http\Controllers\Auth');
 
-            $methodName = $method->name;
-            preg_match('/^(get|post|put|delete|patch)(.+)$/', $methodName, $matches);
-
-            if (count($matches) === 3) {
-                [$fullMatch, $httpVerb, $name] = $matches;
-                $routeName = strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $name));
-
-                // Jika method adalah "getIndex", buat route "/"
-                if ($routeName === 'index') {
-                    $routeName = '';
+        Route::middleware(['web'])->group(function () use ($methods, $controllerClass, $prefix, $isAuthController) {
+            foreach ($methods as $method) {
+                if ($method->class !== $controllerClass || $method->isConstructor()) {
+                    continue;
                 }
 
-                // Gabungkan prefix dan nama method
-                $fullRoute = $prefix . $routeName;
+                $methodName = $method->name;
+                preg_match('/^(get|post|put|delete|patch)(.+)$/', $methodName, $matches);
 
-                if ($routeName === '') {
-                    Route::match(strtolower($httpVerb), $prefix, [$controllerClass, $methodName]);
-                } else {
-                    Route::match(strtolower($httpVerb), $fullRoute . '/{params?}', [$controllerClass, $methodName])
-                        ->where('params', '.*');
+                if (count($matches) === 3) {
+                    [$fullMatch, $httpVerb, $name] = $matches;
+                    $routeName = strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $name));
+
+                    if ($routeName === 'index') {
+                        $routeName = '';
+                    }
+
+                    $fullRoute = $prefix . $routeName;
+
+                    // Jika controller dalam folder Auth, tidak pakai middleware auth
+                    if ($isAuthController) {
+                        Route::match(strtolower($httpVerb), $fullRoute . '/{params?}', [$controllerClass, $methodName])
+                            ->where('params', '.*');
+                    } else {
+                        // Semua selain Auth harus pakai middleware auth
+                        if (strtolower($httpVerb) === 'get') {
+                            $route = Route::get($fullRoute, [$controllerClass, $methodName]);
+
+                            if ($routeName === 'login') {
+                                $route->name('login'); // Beri nama hanya jika route adalah login
+                            }
+                        } else {
+                            Route::middleware(['auth'])->group(function () use ($httpVerb, $fullRoute, $controllerClass, $methodName) {
+                                Route::match(strtolower($httpVerb), $fullRoute . '/{params?}', [$controllerClass, $methodName])
+                                    ->where('params', '.*');
+                            });
+                        }
+                    }
                 }
             }
-        }
+        });
     }
 
 }

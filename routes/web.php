@@ -84,5 +84,5 @@ use App\Http\Controllers\CheckoutController;
 //        Route::resource('transaction', 'TransactionController');
 //    });
 //
-//Auth::routes();
+
 

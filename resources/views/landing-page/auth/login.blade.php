@@ -24,7 +24,6 @@
                                     </div>
                                     {!! formInput('password', 'password', ['id' => 'password', 'required']) !!}
                                 </div>
-
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="form-check">
                                         <input type="checkbox" name="remember" id="remember" class="form-check-input">
@@ -34,6 +33,7 @@
                                         {!! formSubmit('Login', ['class' => 'ms-auto']) !!}
                                     </div>
                                 </div>
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             </form>
                         </div>
                         <div class="card-footer py-3 border-0">
@@ -51,7 +51,8 @@
         $(document).ready(function() {
             $('#form-login').submit(function(){
                 let dataInput = new FormData(this);
-                    ajxProcess('/auth/login/login-action', dataInput, '#message' )
+                console.log(dataInput);
+                ajxProcess('/auth/login/login-action', dataInput, '#message' )
             })
         })
     </script>
