@@ -42,6 +42,6 @@ class ClearRouteCache extends Command
         Artisan::call('route:list');
         $this->info(Artisan::output());
 
-        $this->info('✅ All caches cleared successfully!');
+        $this->info('Berhasil clear cache route');
     }
 }

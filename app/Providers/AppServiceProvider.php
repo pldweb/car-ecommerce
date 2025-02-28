@@ -117,7 +117,7 @@ class AppServiceProvider extends ServiceProvider
                             $route = Route::get($fullRoute, [$controllerClass, $methodName]);
 
                             if ($routeName === 'login') {
-                                $route->name('login'); // Beri nama hanya jika route adalah login
+                                $route->name('login');
                             }
                         } else {
                             Route::middleware(['auth'])->group(function () use ($httpVerb, $fullRoute, $controllerClass, $methodName) {

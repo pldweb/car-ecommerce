@@ -25,7 +25,7 @@
                                     <label class="mb-2 text-muted" for="password">Password</label>
                                     {!! formInput('password', 'password', ['required', 'autofocus']) !!}
                                 </div>
-                                {!! formInput('hidden', '_token') !!}
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="align-items-center d-flex">
                                     {!! formSubmit('Daftar Akun', ['']) !!}
                                 </div>
