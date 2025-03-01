@@ -38,6 +38,9 @@
     <!-- Volt CSS -->
     <link type="text/css" href="{{asset('css/volt.css')}}" rel="stylesheet">
 
+    <!-- Admin CSS -->
+    <link type="text/css" href="{{asset('css/admin.css')}}" rel="stylesheet">
+
     <!-- Template Stylesheet -->
     <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>

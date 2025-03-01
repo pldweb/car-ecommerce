@@ -45,11 +45,10 @@
     <script>
         $(document).ready(function() {
             $('#register-form').submit(function() {
-                var dataInput = new FormData(this);
-                ajxProcess('/auth/register/register-action', dataInput, '#message')
+                let data = new FormData(this);
+                console.log(data);
+                ajxProcess('/auth/register/register-action', data, '#message')
             });
         });
     </script>
-
-
 @endsection

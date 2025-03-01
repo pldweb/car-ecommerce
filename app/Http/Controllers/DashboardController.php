@@ -8,8 +8,36 @@ class DashboardController extends Controller
     {
         $this->middleware('auth');
     }
+
+
+    // Untuk Card Monitoring Dashboard
+    private function getCardMonitoring()
+    {
+        $data = [
+            'Total Operator' => [
+                'jumlah' => 20,
+                'icon' => 'fa fa-user-friends',
+            ],
+            'Total Pelanggan' => [
+                'jumlah' => 10,
+                'icon' => 'fa fa-users',
+            ],
+            'Total Mobil Terjual' => [
+                'jumlah' => 15,
+                'icon' => 'fa fa-money-check-alt',
+            ],
+            'Total Mobil Tersedia' => [
+                'jumlah' => 15,
+                'icon' => 'fa fa-car',
+            ]
+        ];
+        return $data;
+    }
+
     public function getIndex()
     {
-        return view('admin.index');
+        $data = self::getCardMonitoring();
+        $params = ['dataCardMonitoring' => $data];
+        return view('admin.index', $params);
     }
 }
