@@ -45,10 +45,22 @@
     <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+
+    <!-- Include Choices JavaScript (latest) -->
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+
 </head>
 <body>
 
-    @yield('content')
+    @include('admin.komponen-admin.top-navbar')
+
+    @include('admin.komponen-admin.sidebar')
+
+    <main class="content">
+        @include('admin.komponen-admin.navbar')
+        @yield('content')
+    </main>
 
     <!-- Core -->
     <script src="{{asset("vendor/@popperjs/core/dist/umd/popper.min.js")}}"></script>

@@ -4,7 +4,7 @@
 
             <!-- Ini untuk teks judul -->
             <div class="d-flex align-items-center">
-                <h3>Dashboard</h3>
+                <h3>Dashboard Administrasi</h3>
             </div>
 
             <div id="message"></div>
